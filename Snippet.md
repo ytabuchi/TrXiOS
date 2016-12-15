@@ -104,17 +104,6 @@ public async Task GetSpeakersAsync()
 }
 ```
 
-```csharp
-var vm = new UITableViewSample.Models.SpeakersModel();
-```
-
-```csharp
-GetSpeakersButton.TouchUpInside += async (sender, e) =>
-{
-    // vmのGetSpeakersメソッドを実行します。
-    await vm.GetSpeakersAsync();
-};
-```
 
 ```csharp
 protected string[] tableItems;
@@ -131,10 +120,6 @@ public class TableSource : UITableViewSource
 ```
 
 ```csharp
-return tableItems.Length;
-```
-
-```csharp
 UITableViewCell cell = tableView.DequeueReusableCell(cellIdentifier);
 string item = tableItems[indexPath.Row];
 
@@ -146,6 +131,11 @@ cell.TextLabel.Text = item;
 
 return cell;
 ```
+
+```csharp
+return tableItems.Length;
+```
+
 
 #### `TableSource`完成形
 
@@ -181,6 +171,38 @@ public class TableSource : UITableViewSource
 }
 ```
 
+```csharp
+var vm = new UITableViewSample.Models.SpeakersModel();
+```
+
+
+
+```csharp
+GetSpeakersButton.TouchUpInside += async (sender, e) =>
+{
+    // vmのGetSpeakersメソッドを実行します。
+    await vm.GetSpeakersAsync();
+};
+```
+
+```csharp
+var items = vm.Speakers.Select(x => x.Name).ToArray();
+CustomTableView.Source = new TableSource(items);
+CustomTableView.ReloadData();
+```
+
+### `TouchUpInside`メソッド完成形
+
+```csharp
+GetSpeakersButton.TouchUpInside += async (sender, e) =>
+{
+    await vm.GetSpeakersAsync();
+
+    var items = vm.Speakers.Select(x => x.Name).ToArray();
+    CustomTableView.Source = new TableSource(items);
+    CustomTableView.ReloadData();
+};
+```
 
 ```csharp
 public void Update(TableItem item)
