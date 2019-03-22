@@ -8,6 +8,6 @@ namespace UITableViewSample.Models
 {
     public class Speaker
     {
-        
+
     }
 }

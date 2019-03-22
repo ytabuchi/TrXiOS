@@ -23,6 +23,8 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchProfiling>true</MtouchProfiling>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -72,61 +74,56 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UITableViewSample\UITableViewSample.csproj">
-      <Name>UITableViewSample</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-60%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-60%403x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-76.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-76%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small%403x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40%403x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait%402x.png">
-      <InProject>false</InProject>
+      <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +154,12 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UITableViewSample\UITableViewSample.csproj">
+      <Project>{3c72aac8-b941-4490-91a5-783d42a52307}</Project>
+      <Name>UITableViewSample</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
