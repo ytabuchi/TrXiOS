@@ -24,16 +24,19 @@ namespace UITableViewSample.Models
         //        if (_isBusy != value)
         //        {
         //            _isBusy = value;
-        //            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsBusy)));
+        //            OnPropertyChanged();
         //        }
         //    }
         //}
         #endregion
 
-
         public SpeakersModel()
         {
         }
 
+        #region PropertyChangedを使用する場合
+        //void OnPropertyChanged([CallerMemberName] string name = null) =>
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        #endregion
     }
 }
