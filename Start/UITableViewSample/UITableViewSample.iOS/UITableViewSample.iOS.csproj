@@ -23,6 +23,8 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchProfiling>true</MtouchProfiling>
+    <MtouchSdkVersion>
+    </MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -61,68 +63,11 @@
     <MtouchDebug>true</MtouchDebug>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SVProgressHUD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SVProgressHUD.2.1\lib\Xamarin.iOS10\SVProgressHUD.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-60%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-60%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-76.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-76%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Icon-Small-40%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-Portrait%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="Resources\ITunesArtwork" />
@@ -136,7 +81,6 @@
     <InterfaceDefinition Include="CustomTableViewCell.xib" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomTableViewCell.cs" />
@@ -158,6 +102,73 @@
       <Project>{dae7f71f-86cd-4945-83bc-c350fc4dab85}</Project>
       <Name>UITableViewSample</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SVProgressHUD">
+      <Version>2.2.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-1024.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-60@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-60@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-76@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-83.5@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-20.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-20@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-20@2x1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-20@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-40@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-40@2x1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small-40@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small@2x1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Icon-60%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
