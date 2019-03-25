@@ -98,12 +98,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UITableViewSample\UITableViewSample\UITableViewSample.csproj">
-      <Project>{dae7f71f-86cd-4945-83bc-c350fc4dab85}</Project>
-      <Name>UITableViewSample</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="SVProgressHUD">
       <Version>2.2.5</Version>
     </PackageReference>
@@ -169,6 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-60%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UITableViewSample\UITableViewSample.csproj">
+      <Project>{f602df89-7b62-4a86-b1e3-db861bff76bf}</Project>
+      <Name>UITableViewSample</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
