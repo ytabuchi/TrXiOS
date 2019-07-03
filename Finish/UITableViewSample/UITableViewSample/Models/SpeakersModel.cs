@@ -32,7 +32,7 @@ namespace UITableViewSample.Models
         #endregion
 
         public bool IsBusy { get; set; }
-        public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
+        public List<Speaker> Speakers { get; set; } = new List<Speaker>();
 
         public SpeakersModel()
         {

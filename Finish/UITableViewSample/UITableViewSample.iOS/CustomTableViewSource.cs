@@ -5,15 +5,15 @@ using System.Text;
 
 using Foundation;
 using UIKit;
-using UITableViewSample.iOS.Models;
+using UITableViewSample.Models;
 
 namespace UITableViewSample.iOS
 {
     public class CustomTableViewSource : UITableViewSource
     {
-        private List<TableItem> Items { get; set; } = new List<TableItem>();
+        private List<Speaker> Items { get; set; } = new List<Speaker>();
 
-        public CustomTableViewSource(List<TableItem> items)
+        public CustomTableViewSource(List<Speaker> items)
         {
             this.Items = items;
         }
