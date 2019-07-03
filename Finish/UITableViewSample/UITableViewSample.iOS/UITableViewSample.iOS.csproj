@@ -23,8 +23,6 @@
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
     <MtouchProfiling>true</MtouchProfiling>
-    <MtouchSdkVersion>
-    </MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -93,7 +91,6 @@
     <Compile Include="CustomTableViewSource.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Models\TableItem.cs" />
     <Compile Include="TableSource.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
@@ -169,9 +166,14 @@
     <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Images.xcassets\DefaultAvator.imageset\Contents.json" />
+    <ImageAsset Include="Images.xcassets\DefaultAvator.imageset\DefautAvator.pdf" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-60%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images.xcassets\DefaultAvator.imageset\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

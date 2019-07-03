@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using SVProgressHUDBinding;
-using UITableViewSample.iOS.Models;
 using UITableViewSample.Models;
 
 namespace UITableViewSample.iOS
@@ -24,7 +23,7 @@ namespace UITableViewSample.iOS
         {
             base.ViewDidLoad();
 
-            var vm = new UITableViewSample.Models.SpeakersModel();
+            var vm = new SpeakersModel();
 
             CustomTableView.RowHeight = 70;
             CustomTableView.RegisterNibForCellReuse(CustomTableViewCell.Nib, nameof(CustomTableViewCell));
@@ -35,20 +34,10 @@ namespace UITableViewSample.iOS
                 GetSpeakersButton.Enabled = false;
                 SVProgressHUD.Show();
 
-                // vmのGetSpeakersメソッドを実行します。
                 await vm.GetSpeakersAsync();
 
-                // Name、Title、UIImageのプロパティを持つTableItemのListにデータを移し替えます。
-                // 移し替える前にImageUrlをUIImageに変換して格納します。
-                var tableItems = new List<TableItem>();
-                foreach (var x in vm.Speakers)
-                {
-                    var image = await this.LoadImage(x.Avatar);
-                    tableItems.Add(new TableItem(x.Name, x.Title, image));
-                }
-
                 // TableViewのSourceをCustomTableViewSourceでnewします。
-                CustomTableView.Source = new CustomTableViewSource(tableItems);
+                CustomTableView.Source = new CustomTableViewSource(vm.Speakers);
                 CustomTableView.ReloadData();
 
                 // グルグルを非表示、ボタンを利用可にします。
@@ -65,17 +54,6 @@ namespace UITableViewSample.iOS
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
-        }
-
-        private async Task<UIImage> LoadImage(string imageUrl)
-        {
-            using (var client = new HttpClient())
-            {
-                // imageUrlからバイト配列を取得します。
-                byte[] contents = await client.GetByteArrayAsync(imageUrl);
-                // バイト配列のデータからUIImageを生成します。
-                return UIImage.LoadFromData(NSData.FromArray(contents));
-            }
         }
 
         #region PropertyChangedを使用する場合
