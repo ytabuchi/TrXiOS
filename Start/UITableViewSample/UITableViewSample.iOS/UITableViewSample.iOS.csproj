@@ -88,7 +88,6 @@
     <Compile Include="CustomTableViewSource.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Models\TableItem.cs" />
     <Compile Include="TableSource.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
