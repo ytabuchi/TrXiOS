@@ -13,24 +13,6 @@ namespace UITableViewSample.Models
 {
     public class SpeakersModel
     {
-        #region PropertyChangedを使用する場合
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private bool _isBusy;
-        //public bool IsBusy
-        //{
-        //    get { return _isBusy; }
-        //    set
-        //    {
-        //        if (_isBusy != value)
-        //        {
-        //            _isBusy = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-        #endregion
-
         public bool IsBusy { get; set; }
         public List<Speaker> Speakers { get; set; } = new List<Speaker>();
 
@@ -44,7 +26,6 @@ namespace UITableViewSample.Models
             if (IsBusy)
                 return;
 
-            Exception error = null;
             try
             {
                 IsBusy = true;
@@ -53,7 +34,7 @@ namespace UITableViewSample.Models
                 {
                     // サーバーから json を取得します
                     var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
-                    var items = JsonConvert.DeserializeObject<ObservableCollection<Speaker>>(json);
+                    var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 
                     Speakers.Clear();
                     foreach (var item in items)
@@ -63,17 +44,11 @@ namespace UITableViewSample.Models
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Error: " + ex);
-                error = ex;
             }
             finally
             {
                 IsBusy = false;
             }
         }
-
-        #region PropertyChangedを使用する場合
-        //void OnPropertyChanged([CallerMemberName] string name = null) =>
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        #endregion
     }
 }

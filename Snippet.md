@@ -1,9 +1,11 @@
-### コードスニペット
+## コードスニペット
 
 Webサイトまたはmarkdownプレビューとして表示している場合は、それぞれの枠内をコピー＆ペーストしてください。
-メモ帳などのテキストエディタで開いている場合は、```csharp と ``` の間の行をコピー＆ペーストしてください。
+メモ帳などのテキストエディタで開いている場合は、` ```csharp` と ` ``` ` の間の行をコピー＆ペーストしてください。
 
 順次コードを張り付けていく部分もスニペットを用意していますが、その後の完成形も用意してありますので、適宜ご利用ください。
+
+### `UITableViewSample/Models/Speaker.cs`
 
 ```csharp
 public string Id { get; set; }
@@ -14,10 +16,11 @@ public string Title { get; set; }
 public string Avatar { get; set; }
 ```
 
+### `UITableViewSample/Models/SpeakersModel.cs`
 
 ```csharp
 public bool IsBusy { get; set; }
-public ObservableCollection<Speaker> Speakers { get; set; } = new ObservableCollection<Speaker>();
+public List<Speaker> Speakers { get; set; } = new List<Speaker>();
 ```
 
 ```csharp
@@ -29,14 +32,13 @@ public async Task GetSpeakersAsync()
 ```
 
 ```csharp
-Exception error = null;
 try
 {
   IsBusy = true;
 }
 catch (Exception ex)
 {
-  error = ex;
+  
 }
 finally
 {
@@ -48,12 +50,12 @@ finally
 using(var client = new HttpClient())
 {
   // サーバーから json を取得します
-  var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
+  var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
 }
 ```
 
 ```csharp
-var items = JsonConvert.DeserializeObject<ObservableCollection<Speaker>>(json);
+var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 ```
 
 ```csharp
@@ -64,11 +66,10 @@ foreach (var item in items)
 
 ```csharp
 System.Diagnostics.Debug.WriteLine("Error: " + ex);
-error = ex;
 ```
 
 
-#### `GetSpeakersAsync`完成形
+#### `GetSpeakersAsync` 完成形
 
 ```csharp
 public async Task GetSpeakersAsync()
@@ -76,7 +77,6 @@ public async Task GetSpeakersAsync()
     if (IsBusy)
         return;
 
-    Exception error = null;
     try
     {
         IsBusy = true;
@@ -84,8 +84,8 @@ public async Task GetSpeakersAsync()
         using (var client = new HttpClient())
         {
             // サーバーから json を取得します
-            var json = await client.GetStringAsync("http://demo4404797.mockable.io/speakers");
-            var items = JsonConvert.DeserializeObject<ObservableCollection<Speaker>>(json);
+            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+            var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 
             Speakers.Clear();
             foreach (var item in items)
@@ -95,7 +95,6 @@ public async Task GetSpeakersAsync()
     catch (Exception ex)
     {
         System.Diagnostics.Debug.WriteLine("Error: " + ex);
-        error = ex;
     }
     finally
     {
@@ -104,6 +103,7 @@ public async Task GetSpeakersAsync()
 }
 ```
 
+### `UITableViewSample.iOS/TableSource.cs`
 
 ```csharp
 protected string[] tableItems;
@@ -171,8 +171,11 @@ public class TableSource : UITableViewSource
 }
 ```
 
+
+### `UITableViewSample.iOS/ViewController.cs`
+
 ```csharp
-var vm = new UITableViewSample.Models.SpeakersModel();
+var vm = new SpeakersModel();
 ```
 
 
@@ -180,7 +183,6 @@ var vm = new UITableViewSample.Models.SpeakersModel();
 ```csharp
 GetSpeakersButton.TouchUpInside += async (sender, e) =>
 {
-    // vmのGetSpeakersメソッドを実行します。
     await vm.GetSpeakersAsync();
 };
 ```
@@ -191,7 +193,7 @@ CustomTableView.Source = new TableSource(items);
 CustomTableView.ReloadData();
 ```
 
-### `TouchUpInside`メソッド完成形
+### `TouchUpInside` メソッド完成形
 
 ```csharp
 GetSpeakersButton.TouchUpInside += async (sender, e) =>
@@ -204,22 +206,40 @@ GetSpeakersButton.TouchUpInside += async (sender, e) =>
 };
 ```
 
-```csharp
-public void Update(TableItem item)
-{
-    NameLabel.Text = item.Name;
-    TitleLabel.Text = item.Title;
-    AvatorImage.Image = item.Image;
+### `UITableViewSample.iOS/CustomTableViewCell.cs`
 
-    // ImageViewに枠線を追加。
+```csharp
+/// <summary>
+/// データを流し込むためのUpdateメソッド
+/// </summary>
+/// <param name="speaker"></param>
+public async void Update(Speaker speaker)
+{
+    NameLabel.Text = speaker.Name;
+    TitleLabel.Text = speaker.Title;
+    AvatorImage.Image = await LoadImage(speaker.Avatar);
+
     AvatorImage.Layer.CornerRadius = AvatorImage.Bounds.Height / 2;
     AvatorImage.Layer.BorderWidth = 2;
     AvatorImage.Layer.BorderColor = UIColor.FromRGB(0x34, 0x98, 0xdb).CGColor;
     AvatorImage.ClipsToBounds = true;
 }
+
+private async Task<UIImage> LoadImage(string imageUrl)
+{
+    if (string.IsNullOrEmpty(imageUrl))
+        return UIImage.FromBundle("DefaultAvator");
+
+    var httpClient = new HttpClient();
+    byte[] contents = await httpClient.GetByteArrayAsync(imageUrl);
+
+    // load from bytes
+    return UIImage.LoadFromData(NSData.FromArray(contents));
+}
 ```
 
-#### `CustomTableViewCell `完成形
+
+#### `CustomTableViewCell` 完成形
 
 ```csharp
 public partial class CustomTableViewCell : UITableViewCell
@@ -240,20 +260,36 @@ public partial class CustomTableViewCell : UITableViewCell
     /// <summary>
     /// データを流し込むためのUpdateメソッド
     /// </summary>
-    /// <param name="item"></param>
-    public void Update(TableItem item)
+    /// <param name="speaker"></param>
+    public async void Update(Speaker speaker)
     {
-        NameLabel.Text = item.Name;
-        TitleLabel.Text = item.Title;
-        AvatorImage.Image = item.Image;
+        NameLabel.Text = speaker.Name;
+        TitleLabel.Text = speaker.Title;
+        AvatorImage.Image = await LoadImage(speaker.Avatar);
 
         AvatorImage.Layer.CornerRadius = AvatorImage.Bounds.Height / 2;
         AvatorImage.Layer.BorderWidth = 2;
         AvatorImage.Layer.BorderColor = UIColor.FromRGB(0x34, 0x98, 0xdb).CGColor;
         AvatorImage.ClipsToBounds = true;
     }
+
+    private async Task<UIImage> LoadImage(string imageUrl)
+    {
+        if (string.IsNullOrEmpty(imageUrl))
+            return UIImage.FromBundle("DefaultAvator");
+
+        var httpClient = new HttpClient();
+        byte[] contents = await httpClient.GetByteArrayAsync(imageUrl);
+
+        // load from bytes
+        return UIImage.LoadFromData(NSData.FromArray(contents));
+    }
+ }
 }
 ```
+
+### `UITableViewSample.iOS/CustomTableViewSource.cs`
+
 
 
 ```csharp
@@ -261,11 +297,22 @@ public class CustomTableViewSource : UITableViewSource
 ```
 
 ```csharp
+private List<Speaker> Items { get; set; } = new List<Speaker> ();
+
+public CustomTableViewSource (List<Speaker> items)
+{
+    this.Items = items;
+}
+```
+
+
+```csharp
 var cell = (CustomTableViewCell)tableView.DequeueReusableCell(nameof(CustomTableViewCell), indexPath);
 var item = Items[indexPath.Row];
 cell.Update(item);
 return cell;
 ```
+
 
 ```csharp
 return Items.Count;
@@ -276,9 +323,9 @@ return Items.Count;
 ```csharp
 public class CustomTableViewSource : UITableViewSource
 {
-    private List<TableItem> Items { get; set; } = new List<TableItem>();
+    private List<Speaker> Items { get; set; } = new List<Speaker>();
 
-    public CustomTableViewSource(List<TableItem> items)
+    public CustomTableViewSource(List<Speaker> items)
     {
         this.Items = items;
     }
@@ -299,6 +346,9 @@ public class CustomTableViewSource : UITableViewSource
 ```
 
 
+### `UITableViewSample.iOS/ViewController.cs`
+
+
 ```csharp
 CustomTableView.RowHeight = 70;
 CustomTableView.RegisterNibForCellReuse(CustomTableViewCell.Nib, nameof(CustomTableViewCell));
@@ -309,20 +359,10 @@ CustomTableView.RegisterNibForCellReuse(CustomTableViewCell.Nib, nameof(CustomTa
 GetSpeakersButton.Enabled = false;
 SVProgressHUD.Show();
 
-// vmのGetSpeakersメソッドを実行します。
 await vm.GetSpeakersAsync();
 
-// Name、Title、UIImageのプロパティを持つTableItemのListにデータを移し替えます。
-// 移し替える前にImageUrlをUIImageに変換して格納します。
-var tableItems = new List<TableItem>();
-foreach (var x in vm.Speakers)
-{
-    var image = await this.LoadImage(x.Avatar);
-    tableItems.Add(new TableItem(x.Name, x.Title, image));
-}
-
 // TableViewのSourceをCustomTableViewSourceでnewします。
-CustomTableView.Source = new CustomTableViewSource(tableItems);
+CustomTableView.Source = new CustomTableViewSource(vm.Speakers);
 CustomTableView.ReloadData();
 
 // グルグルを非表示、ボタンを利用可にします。
@@ -330,7 +370,9 @@ SVProgressHUD.Dismiss();
 GetSpeakersButton.Enabled = true;
 ```
 
-### `ViewController`完成形
+
+### `ViewController` 完成形
+
 ```csharp
 public partial class ViewController : UIViewController
 {
@@ -342,7 +384,7 @@ public partial class ViewController : UIViewController
     {
         base.ViewDidLoad();
 
-        var vm = new UITableViewSample.Models.SpeakersModel();
+        var vm = new SpeakersModel();
 
         CustomTableView.RowHeight = 70;
         CustomTableView.RegisterNibForCellReuse(CustomTableViewCell.Nib, nameof(CustomTableViewCell));
@@ -353,26 +395,20 @@ public partial class ViewController : UIViewController
             GetSpeakersButton.Enabled = false;
             SVProgressHUD.Show();
 
-            // vmのGetSpeakersメソッドを実行します。
             await vm.GetSpeakersAsync();
 
-            // Name、Title、UIImageのプロパティを持つTableItemのListにデータを移し替えます。
-            // 移し替える前にImageUrlをUIImageに変換して格納します。
-            var tableItems = new List<TableItem>();
-            foreach (var x in vm.Speakers)
-            {
-                var image = await this.LoadImage(x.Avatar);
-                tableItems.Add(new TableItem(x.Name, x.Title, image));
-            }
-
             // TableViewのSourceをCustomTableViewSourceでnewします。
-            CustomTableView.Source = new CustomTableViewSource(tableItems);
+            CustomTableView.Source = new CustomTableViewSource(vm.Speakers);
             CustomTableView.ReloadData();
 
             // グルグルを非表示、ボタンを利用可にします。
             SVProgressHUD.Dismiss();
             GetSpeakersButton.Enabled = true;
         };
+
+        #region PropertyChangedを使用する場合
+        //vm.PropertyChanged += Vm_PropertyChanged;
+        #endregion
     }
 
     public override void DidReceiveMemoryWarning()
@@ -380,16 +416,7 @@ public partial class ViewController : UIViewController
         base.DidReceiveMemoryWarning();
         // Release any cached data, images, etc that aren't in use.
     }
-
-    private async Task<UIImage> LoadImage(string imageUrl)
-    {
-        using (var client = new HttpClient())
-        {
-            // imageUrlからバイト配列を取得します。
-            byte[] contents = await client.GetByteArrayAsync(imageUrl);
-            // バイト配列のデータからUIImageを生成します。
-            return UIImage.LoadFromData(NSData.FromArray(contents));
-        }
-    }
 }
 ```
+
+

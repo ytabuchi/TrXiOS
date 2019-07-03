@@ -2,7 +2,6 @@
 
 using Foundation;
 using UIKit;
-using UITableViewSample.iOS.Models;
 
 namespace UITableViewSample.iOS
 {

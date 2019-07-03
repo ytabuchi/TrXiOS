@@ -23,6 +23,7 @@ namespace UITableViewSample.iOS
             var cell = (CustomTableViewCell)tableView.DequeueReusableCell(nameof(CustomTableViewCell), indexPath);
             var item = Items[indexPath.Row];
             cell.Update(item);
+
             return cell;
         }
 

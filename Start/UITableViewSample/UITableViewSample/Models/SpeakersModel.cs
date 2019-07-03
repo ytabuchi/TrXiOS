@@ -11,31 +11,10 @@ namespace UITableViewSample.Models
 {
     public class SpeakersModel
     {
-        #region PropertyChangedを使用する場合
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private bool _isBusy;
-        //public bool IsBusy
-        //{
-        //    get { return _isBusy; }
-        //    set
-        //    {
-        //        if (_isBusy != value)
-        //        {
-        //            _isBusy = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-        #endregion
 
         public SpeakersModel()
         {
+            
         }
-
-        #region PropertyChangedを使用する場合
-        //void OnPropertyChanged([CallerMemberName] string name = null) =>
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        #endregion
     }
 }
