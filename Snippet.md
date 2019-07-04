@@ -172,6 +172,7 @@ public class TableSource : UITableViewSource
 ```
 
 
+
 ### `UITableViewSample.iOS/ViewController.cs`
 
 ```csharp
@@ -206,6 +207,28 @@ GetSpeakersButton.TouchUpInside += async (sender, e) =>
 };
 ```
 
+
+### `UITableViewSample.iOS/Helpers/ImageManager.cs`
+
+```csharp
+public static class ImageManager
+{
+    public static async Task<UIImage> LoadImageAsync(string imageUrl)
+    {
+        if (string.IsNullOrEmpty(imageUrl))
+            return UIImage.FromBundle("DefaultAvator");
+
+        var httpClient = new HttpClient();
+        byte[] contents = await httpClient.GetByteArrayAsync(imageUrl);
+
+        // load from bytes
+        return UIImage.LoadFromData(NSData.FromArray(contents));
+    }
+}
+```
+
+
+
 ### `UITableViewSample.iOS/CustomTableViewCell.cs`
 
 ```csharp
@@ -217,24 +240,12 @@ public async void Update(Speaker speaker)
 {
     NameLabel.Text = speaker.Name;
     TitleLabel.Text = speaker.Title;
-    AvatorImage.Image = await LoadImage(speaker.Avatar);
+    AvatorImage.Image = await LoadImageAsync(speaker.Avatar);
 
     AvatorImage.Layer.CornerRadius = AvatorImage.Bounds.Height / 2;
     AvatorImage.Layer.BorderWidth = 2;
     AvatorImage.Layer.BorderColor = UIColor.FromRGB(0x34, 0x98, 0xdb).CGColor;
     AvatorImage.ClipsToBounds = true;
-}
-
-private async Task<UIImage> LoadImage(string imageUrl)
-{
-    if (string.IsNullOrEmpty(imageUrl))
-        return UIImage.FromBundle("DefaultAvator");
-
-    var httpClient = new HttpClient();
-    byte[] contents = await httpClient.GetByteArrayAsync(imageUrl);
-
-    // load from bytes
-    return UIImage.LoadFromData(NSData.FromArray(contents));
 }
 ```
 
@@ -271,18 +282,6 @@ public partial class CustomTableViewCell : UITableViewCell
         AvatorImage.Layer.BorderWidth = 2;
         AvatorImage.Layer.BorderColor = UIColor.FromRGB(0x34, 0x98, 0xdb).CGColor;
         AvatorImage.ClipsToBounds = true;
-    }
-
-    private async Task<UIImage> LoadImage(string imageUrl)
-    {
-        if (string.IsNullOrEmpty(imageUrl))
-            return UIImage.FromBundle("DefaultAvator");
-
-        var httpClient = new HttpClient();
-        byte[] contents = await httpClient.GetByteArrayAsync(imageUrl);
-
-        // load from bytes
-        return UIImage.LoadFromData(NSData.FromArray(contents));
     }
  }
 }
@@ -420,3 +419,71 @@ public partial class ViewController : UIViewController
 ```
 
 
+### `UITableViewSample.iOS/DetailViewController.cs`
+
+```csharp
+Speaker speaker;
+```
+
+
+```csharp
+public override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+}
+```
+
+```csharp
+public override async void ViewWillAppear(bool animated)
+{
+    base.ViewWillAppear(animated);
+
+    Avator.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
+    Name.Text = speaker.Name;
+    Description.Text = speaker.Description;
+}
+```
+
+```csharp
+public void SetSpeaker(Speaker speaker)
+{
+    this.speaker = speaker;
+}
+```
+
+
+
+### `UITableViewSample.iOS/CustomTableViewSource.cs`
+
+
+```csharp
+public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+{
+    parentViewController.PerformSegue("DetailSegue", indexPath);
+}
+
+public Speaker GetSpeaker(int id)
+{
+    return Items[id];
+}
+```
+
+
+### `UITableViewSample.iOS/ViewController.cs`
+
+```csharp
+public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+{
+    if (segue.Identifier == "DetailSegue")
+    {
+        var detailViewController = segue.DestinationViewController as DetailViewController;
+        if (detailViewController != null)
+        {
+            var source = CustomTableView.Source as CustomTableViewSource;
+            var rowPath = CustomTableView.IndexPathForSelectedRow;
+            var speaker = source.GetSpeaker(rowPath.Row);
+            detailViewController.SetSpeaker(speaker); // to be defined on the TaskDetailViewController
+        }
+    }
+}
+```

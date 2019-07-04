@@ -37,7 +37,7 @@ namespace UITableViewSample.iOS
                 await vm.GetSpeakersAsync();
 
                 // TableViewのSourceをCustomTableViewSourceでnewします。
-                CustomTableView.Source = new CustomTableViewSource(vm.Speakers);
+                CustomTableView.Source = new CustomTableViewSource(this, vm.Speakers);
                 CustomTableView.ReloadData();
 
                 // グルグルを非表示、ボタンを利用可にします。
@@ -45,6 +45,23 @@ namespace UITableViewSample.iOS
                 GetSpeakersButton.Enabled = true;
             };
         }
+
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            if (segue.Identifier == "DetailSegue")
+            {
+                var detailViewController = segue.DestinationViewController as DetailViewController;
+                if (detailViewController != null)
+                {
+                    var source = CustomTableView.Source as CustomTableViewSource;
+                    var rowPath = CustomTableView.IndexPathForSelectedRow;
+                    var speaker = source.GetSpeaker(rowPath.Row);
+                    detailViewController.SetSpeaker(speaker); // to be defined on the TaskDetailViewController
+                }
+            }
+        }
+
+        
 
         public override void DidReceiveMemoryWarning()
         {
