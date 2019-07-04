@@ -207,6 +207,42 @@ GetSpeakersButton.TouchUpInside += async (sender, e) =>
 };
 ```
 
+### `UITableViewSample.iOS/Info.plist`
+
+Visual Studio Code などのテキストエディタで編集する。
+
+適切な指定方法
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>demo4404797.mockable.io</key>
+        <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+        </dict>
+        <key>xlsoft.com</key>
+        <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+```
+
+サンプル用の簡易指定方法
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+</dict>
+```
+
+
 
 ### `UITableViewSample.iOS/Helpers/ImageManager.cs`
 
@@ -231,6 +267,7 @@ public static class ImageManager
 
 ### `UITableViewSample.iOS/CustomTableViewCell.cs`
 
+
 ```csharp
 /// <summary>
 /// データを流し込むためのUpdateメソッド
@@ -240,7 +277,7 @@ public async void Update(Speaker speaker)
 {
     NameLabel.Text = speaker.Name;
     TitleLabel.Text = speaker.Title;
-    AvatorImage.Image = await LoadImageAsync(speaker.Avatar);
+    AvatorImage.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
 
     AvatorImage.Layer.CornerRadius = AvatorImage.Bounds.Height / 2;
     AvatorImage.Layer.BorderWidth = 2;
@@ -276,7 +313,7 @@ public partial class CustomTableViewCell : UITableViewCell
     {
         NameLabel.Text = speaker.Name;
         TitleLabel.Text = speaker.Title;
-        AvatorImage.Image = await LoadImage(speaker.Avatar);
+        AvatorImage.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
 
         AvatorImage.Layer.CornerRadius = AvatorImage.Bounds.Height / 2;
         AvatorImage.Layer.BorderWidth = 2;
@@ -311,7 +348,6 @@ var item = Items[indexPath.Row];
 cell.Update(item);
 return cell;
 ```
-
 
 ```csharp
 return Items.Count;
@@ -404,10 +440,6 @@ public partial class ViewController : UIViewController
             SVProgressHUD.Dismiss();
             GetSpeakersButton.Enabled = true;
         };
-
-        #region PropertyChangedを使用する場合
-        //vm.PropertyChanged += Vm_PropertyChanged;
-        #endregion
     }
 
     public override void DidReceiveMemoryWarning()
@@ -440,6 +472,7 @@ public override async void ViewWillAppear(bool animated)
 
     Avator.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
     Name.Text = speaker.Name;
+    Title.Text = speaker.Title;
     Description.Text = speaker.Description;
 }
 ```

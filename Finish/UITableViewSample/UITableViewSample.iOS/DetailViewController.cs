@@ -26,6 +26,7 @@ namespace UITableViewSample.iOS
 
             Avator.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
             Name.Text = speaker.Name;
+            Title.Text = speaker.Title;
             Description.Text = speaker.Description;
         }
 
