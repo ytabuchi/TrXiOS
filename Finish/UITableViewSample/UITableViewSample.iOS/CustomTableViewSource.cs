@@ -11,10 +11,12 @@ namespace UITableViewSample.iOS
 {
     public class CustomTableViewSource : UITableViewSource
     {
+        private ViewController parentViewController;
         private List<Speaker> Items { get; set; } = new List<Speaker>();
 
-        public CustomTableViewSource(List<Speaker> items)
+        public CustomTableViewSource(ViewController parentViewController, List<Speaker> items)
         {
+            this.parentViewController = parentViewController;
             this.Items = items;
         }
 
@@ -30,6 +32,16 @@ namespace UITableViewSample.iOS
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             return Items.Count;
+        }
+
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        {
+            parentViewController.PerformSegue("DetailSegue", indexPath);
+        }
+
+        public Speaker GetSpeaker(int id)
+        {
+            return Items[id];
         }
     }
 }

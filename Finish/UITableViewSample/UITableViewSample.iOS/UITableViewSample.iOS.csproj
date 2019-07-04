@@ -96,6 +96,11 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetailViewController.cs" />
+    <Compile Include="DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ImageManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UITableViewSample\UITableViewSample.csproj">
@@ -174,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images.xcassets\DefaultAvator.imageset\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
