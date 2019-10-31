@@ -65,9 +65,7 @@
         <Reference Include="Xamarin.iOS" />
         <Reference Include="System.Numerics" />
         <Reference Include="System.Numerics.Vectors" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+        <Reference Include="System.Net.Http" />
     </ItemGroup>
     <ItemGroup>
         <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -116,9 +114,12 @@
     <ItemGroup>
         <Folder Include="Resources\" />
         <Folder Include="Views\" />
+        <Folder Include="Models\" />
+        <Folder Include="Services\" />
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="LaunchScreen.storyboard" />
+        <InterfaceDefinition Include="Main.storyboard" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Info.plist" />
@@ -128,6 +129,20 @@
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
         <Compile Include="Views\SimpleViewController.cs" />
+        <Compile Include="Views\SecondViewController.cs" />
+        <Compile Include="Views\SecondViewController.designer.cs" />
+        <Compile Include="Views\SpeakersViewController.cs" />
+        <Compile Include="Views\SpeakersViewController.designer.cs" />
+        <Compile Include="Views\SimpleViewController.designer.cs" />
+        <Compile Include="Views\PlainTableSource.cs" />
+        <Compile Include="Models\Speaker.cs" />
+        <Compile Include="Services\SpeakerService.cs" />
+        <Compile Include="Services\ISpeakerService.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json">
+        <Version>12.0.2</Version>
+      </PackageReference>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
