@@ -119,7 +119,6 @@
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="LaunchScreen.storyboard" />
-        <InterfaceDefinition Include="Main.storyboard" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Info.plist" />
@@ -129,8 +128,6 @@
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
         <Compile Include="Views\SimpleViewController.cs" />
-        <Compile Include="Views\SecondViewController.cs" />
-        <Compile Include="Views\SecondViewController.designer.cs" />
         <Compile Include="Views\SpeakersViewController.cs" />
         <Compile Include="Views\SpeakersViewController.designer.cs" />
         <Compile Include="Views\SimpleViewController.designer.cs" />

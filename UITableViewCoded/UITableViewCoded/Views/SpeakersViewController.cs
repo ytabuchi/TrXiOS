@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using UITableViewCoded.Services;
@@ -16,17 +17,17 @@ namespace UITableViewCoded.Views
             Title = "Speakers";
             InitializeUI();
 
-            var items = new string[]
-            {
-                "item 1",
-                "item 2",
-                "item 3",
-                "item 4",
-                "item 5",
-            };
+            //var items = new string[]
+            //{
+            //    "item 1",
+            //    "item 2",
+            //    "item 3",
+            //    "item 4",
+            //    "item 5",
+            //};
 
-            speakersTable.Source = new PlainTableSource(items);
-            speakersTable.ReloadData();
+            //speakersTable.Source = new PlainTableSource(items);
+            //speakersTable.ReloadData();
 
         }
 

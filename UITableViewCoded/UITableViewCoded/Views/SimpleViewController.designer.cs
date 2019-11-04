@@ -6,14 +6,14 @@ namespace UITableViewCoded.Views
 {
     public partial class SimpleViewController
     {
-        // ここにUIエレメントを割り当てるフィールドを追加
+        // UI エレメントのフィールド
         UILabel timeLabel { get; set; }
         UIButton updateButton { get; set; }
         UIButton navigateButton { get; set; }
-        //[Weak] UIViewController speakersViewController;
 
         void InitializeUI()
         {
+            // View の設定。
             View.ContentMode = UIViewContentMode.ScaleToFill;
             View.Frame = new CGRect(0, 0, 375, 667);
             View.BackgroundColor = UIColor.White;
@@ -69,14 +69,17 @@ namespace UITableViewCoded.Views
             navigateButton.TouchUpInside += (s, e) => Navigate();
             View.AddSubview(navigateButton);
 
+            // 元のフィールドにアンカーを追加していくやり方
             // NowLabel の Constraints
             timeLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 10f).Active = true;
             timeLabel.LeftAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeftAnchor).Active = true;
             timeLabel.RightAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.RightAnchor).Active = true;
             // UpdateButton の Constraints
-            View.AddConstraint(NSLayoutConstraint.Create(updateButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, timeLabel, NSLayoutAttribute.Bottom, 1.0f, 15f));
-            View.AddConstraint(NSLayoutConstraint.Create(updateButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, View.SafeAreaLayoutGuide, NSLayoutAttribute.Leading, 1.0f, 16f));
-            View.AddConstraint(NSLayoutConstraint.Create(View.SafeAreaLayoutGuide, NSLayoutAttribute.Trailing, NSLayoutRelation.Equal, updateButton, NSLayoutAttribute.Trailing, 1.0f, 16f));
+            updateButton.TopAnchor.ConstraintEqualTo(timeLabel.BottomAnchor, 10f).Active = true;
+            updateButton.LeftAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeftAnchor).Active = true;
+            updateButton.RightAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.RightAnchor).Active = true;
+
+            // 1st View, 2nd View を指定して Constraint を追加するやり方。（Storyboard のコードではこの書き方になっている。順番に注意。
             // NavigateButton の Constraints
             View.AddConstraint(NSLayoutConstraint.Create(navigateButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, updateButton, NSLayoutAttribute.Bottom, 1.0f, 15f));
             View.AddConstraint(NSLayoutConstraint.Create(navigateButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, View.SafeAreaLayoutGuide, NSLayoutAttribute.Leading, 1.0f, 16f));
