@@ -37,14 +37,14 @@ namespace UITableViewCoded.Views
 
             var tableViewCell = new UITableViewCell
             {
-                SelectionStyle = UITableViewCellSelectionStyle.Default,
+                SelectionStyle = UITableViewCellSelectionStyle.Default, // デフォルトの UITableView スタイル
                 
             };
 
             speakersTable = new UITableView(new CGRect(0, 40, 375, 400), UITableViewStyle.Plain)
             {
                 Opaque = false,
-                ContentMode = UIViewContentMode.ScaleToFill, // 表示を Constrains に合うようにスケールする（？）
+                ContentMode = UIViewContentMode.ScaleToFill,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 AlwaysBounceVertical = true,
             };
