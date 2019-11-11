@@ -50,7 +50,7 @@ finally
 using(var client = new HttpClient())
 {
   // サーバーから json を取得します
-  var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+  var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
 }
 ```
 
@@ -84,7 +84,7 @@ public async Task GetSpeakersAsync()
         using (var client = new HttpClient())
         {
             // サーバーから json を取得します
-            var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+            var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
             var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 
             Speakers.Clear();
@@ -207,40 +207,7 @@ GetSpeakersButton.TouchUpInside += async (sender, e) =>
 };
 ```
 
-### `UITableViewSample.iOS/Info.plist`
 
-Visual Studio Code などのテキストエディタで編集する。
-
-適切な指定方法
-
-```xml
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSExceptionDomains</key>
-    <dict>
-        <key>demo4404797.mockable.io</key>
-        <dict>
-            <key>NSExceptionAllowsInsecureHTTPLoads</key>
-            <true/>
-        </dict>
-        <key>xlsoft.com</key>
-        <dict>
-            <key>NSExceptionAllowsInsecureHTTPLoads</key>
-            <true/>
-        </dict>
-    </dict>
-</dict>
-```
-
-サンプル用の簡易指定方法
-
-```xml
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-</dict>
-```
 
 
 
@@ -451,36 +418,40 @@ public partial class ViewController : UIViewController
 ```
 
 
+
+
+
 ### `UITableViewSample.iOS/DetailViewController.cs`
 
 ```csharp
-Speaker speaker;
-```
-
-
-```csharp
-public override void ViewDidLoad()
+public partial class DetailViewController : UIViewController
 {
-    base.ViewDidLoad();
-}
-```
+    Speaker speaker;
 
-```csharp
-public override async void ViewWillAppear(bool animated)
-{
-    base.ViewWillAppear(animated);
+    public DetailViewController (IntPtr handle) : base (handle)
+    {
+    }
 
-    Avator.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
-    Name.Text = speaker.Name;
-    Title.Text = speaker.Title;
-    Description.Text = speaker.Description;
-}
-```
+    public override void ViewDidLoad()
+    {
+        base.ViewDidLoad();
+    }
 
-```csharp
-public void SetSpeaker(Speaker speaker)
-{
-    this.speaker = speaker;
+    public override async void ViewWillAppear(bool animated)
+    {
+        base.ViewWillAppear(animated);
+
+        Avatar.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
+        Name.Text = speaker.Name;
+        Title.Text = speaker.Title;
+        Description.Text = speaker.Description;
+        Description.SizeToFit();
+    }
+
+    public void SetSpeaker(Speaker speaker)
+    {
+        this.speaker = speaker;
+    }
 }
 ```
 

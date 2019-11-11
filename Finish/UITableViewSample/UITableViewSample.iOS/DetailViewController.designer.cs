@@ -16,21 +16,25 @@ namespace UITableViewSample.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView Avator { get; set; }
+        UIKit.UIImageView Avatar { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextView Description { get; set; }
+        UIKit.UILabel Description { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel Name { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Title { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
-            if (Avator != null) {
-                Avator.Dispose ();
-                Avator = null;
+            if (Avatar != null) {
+                Avatar.Dispose ();
+                Avatar = null;
             }
 
             if (Description != null) {
@@ -41,6 +45,11 @@ namespace UITableViewSample.iOS
             if (Name != null) {
                 Name.Dispose ();
                 Name = null;
+            }
+
+            if (Title != null) {
+                Title.Dispose ();
+                Title = null;
             }
         }
     }

@@ -24,10 +24,11 @@ namespace UITableViewSample.iOS
         {
             base.ViewWillAppear(animated);
 
-            Avator.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
+            Avatar.Image = await Helpers.ImageManager.LoadImageAsync(speaker.Avatar);
             Name.Text = speaker.Name;
             Title.Text = speaker.Title;
             Description.Text = speaker.Description;
+            Description.SizeToFit();
         }
 
         public void SetSpeaker(Speaker speaker)

@@ -171,8 +171,12 @@
     <ImageAsset Include="Images.xcassets\AppIcons.appiconset\Icon-Small@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Images.xcassets\DefaultAvator.imageset\Contents.json" />
-    <ImageAsset Include="Images.xcassets\DefaultAvator.imageset\DefautAvator.pdf" />
+    <ImageAsset Include="Images.xcassets\DefaultAvator.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Images.xcassets\DefaultAvator.imageset\DefautAvator.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-60%402x.png" />
