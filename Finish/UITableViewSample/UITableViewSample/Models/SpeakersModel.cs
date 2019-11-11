@@ -33,7 +33,7 @@ namespace UITableViewSample.Models
                 using (var client = new HttpClient())
                 {
                     // サーバーから json を取得します
-                    var json = await client.GetStringAsync("https://demo4404797.mockable.io/speakers");
+                    var json = await client.GetStringAsync("https://demo8598876.mockable.io/speakers");
                     var items = JsonConvert.DeserializeObject<List<Speaker>>(json);
 
                     Speakers.Clear();
